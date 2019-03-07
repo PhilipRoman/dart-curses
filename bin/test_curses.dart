@@ -7,17 +7,22 @@ library test_curses;
 import 'package:curses/curses.dart';
 
 void main() {
-  stdscr.setup(autoRefresh: true, cursorVisibility: CursorVisibility.INVISIBLE, escDelay: 1);
+  stdscr.setup(
+      autoRefresh: true,
+      cursorVisibility: CursorVisibility.INVISIBLE,
+      escDelay: 1);
 
   stdscr.init_pair(1, Color.RED, Color.BLACK);
 
-  stdscr.addstr('hola', location: new Point(1, 1), colorPair: 1, attributes: [Attribute.REVERSE]);
+  stdscr.addstr('hola',
+      location: new Point(1, 1), colorPair: 1, attributes: [Attribute.REVERSE]);
   stdscr.addstr('adios', location: new Point(2, 1));
-  stdscr.addstr('mundo', location: new Point(3, 1), colorPair: 1, attributes: [Attribute.BOLD]);
+  stdscr.addstr('mundo',
+      location: new Point(3, 1), colorPair: 1, attributes: [Attribute.BOLD]);
 
   var size = stdscr.getmaxyx();
   stdscr.addstr('${size.rows} x ${size.columns}', location: new Point(4, 1));
-  stdscr.addstr('XXX', location: new Point(size.rows-1, size.columns-4));
+  stdscr.addstr('XXX', location: new Point(size.rows - 1, size.columns - 4));
 
   var w = new Window(new Point(10, 10), new Size(10, 10), autoRefresh: true);
   w.border();
@@ -32,8 +37,7 @@ void main() {
     w.dispose();
     stdscr.dispose();
 
-    var strKey = new String.fromCharCode(key);
+    var strKey = new String.fromCharCode(key.keyCode);
     print("key = $strKey");
   });
-
 }
