@@ -22,7 +22,6 @@ Screen get stdscr {
 }
 
 class Attribute {
-
   static const NONE = const Attribute._none();
 
   static final ALTCHARSET = new Attribute._fromCurses('ALTCHARSET');
@@ -44,11 +43,9 @@ class Attribute {
   const Attribute._none()
       : name = 'NONE',
         _value = 0;
-
 }
 
 class Color extends Attribute {
-
   static const NONE = const Color._none();
 
   static final BLACK = new Color._fromCurses('BLACK');
@@ -63,11 +60,9 @@ class Color extends Attribute {
   Color._fromCurses(String name) : super._fromCurses(name);
 
   const Color._none() : super._none();
-
 }
 
 class CursorVisibility {
-
   static const INVISIBLE = const CursorVisibility('INVISIBLE', 0);
   static const NORMAL = const CursorVisibility('NORMAL', 1);
   static const HIGH = const CursorVisibility('HIGH', 2);
@@ -76,120 +71,119 @@ class CursorVisibility {
   final int _value;
 
   const CursorVisibility(this.name, this._value);
-
 }
 
 class Key {
-
   static const _EXTRA_KEYS = const <String, int>{
     'ESC': 27,
   };
 
   static const _CURSES_KEYS = const <String>[
-      'F1',
-      'F2',
-      'F3',
-      'F4',
-      'F5',
-      'F6',
-      'F7',
-      'F8',
-      'F9',
-      'F10',
-      'F11',
-      'F12',
-      'CODE_YES',
-      'BREAK',
-      'SRESET',
-      'RESET',
-      'DOWN',
-      'UP',
-      'LEFT',
-      'RIGHT',
-      'HOME',
-      'BACKSPACE',
-      'DL',
-      'IL',
-      'DC',
-      'IC',
-      'EIC',
-      'CLEAR',
-      'EOS',
-      'EOL',
-      'SF',
-      'SR',
-      'NPAGE',
-      'PPAGE',
-      'STAB',
-      'CTAB',
-      'CATAB',
-      'ENTER',
-      'PRINT',
-      'LL',
-      'A1',
-      'A3',
-      'B2',
-      'C1',
-      'C3',
-      'BTAB',
-      'BEG',
-      'CANCEL',
-      'CLOSE',
-      'COMMAND',
-      'COPY',
-      'CREATE',
-      'END',
-      'EXIT',
-      'FIND',
-      'HELP',
-      'MARK',
-      'MESSAGE',
-      'MOVE',
-      'NEXT',
-      'OPEN',
-      'OPTIONS',
-      'PREVIOUS',
-      'REDO',
-      'REFERENCE',
-      'REFRESH',
-      'REPLACE',
-      'RESTART',
-      'RESUME',
-      'SAVE',
-      'SBEG',
-      'SCANCEL',
-      'SCOMMAND',
-      'SCOPY',
-      'SCREATE',
-      'SDC',
-      'SDL',
-      'SELECT',
-      'SEND',
-      'SEOL',
-      'SEXIT',
-      'SFIND',
-      'SHELP',
-      'SHOME',
-      'SIC',
-      'SLEFT',
-      'SMESSAGE',
-      'SMOVE',
-      'SNEXT',
-      'SOPTIONS',
-      'SPREVIOUS',
-      'SPRINT',
-      'SREDO',
-      'SREPLACE',
-      'SRIGHT',
-      'SRSUME',
-      'SSAVE',
-      'SSUSPEND',
-      'SUNDO',
-      'SUSPEND',
-      'UNDO',
-      'MOUSE',
-      'RESIZE',
-      'EVENT'];
+    'F1',
+    'F2',
+    'F3',
+    'F4',
+    'F5',
+    'F6',
+    'F7',
+    'F8',
+    'F9',
+    'F10',
+    'F11',
+    'F12',
+    'CODE_YES',
+    'BREAK',
+    'SRESET',
+    'RESET',
+    'DOWN',
+    'UP',
+    'LEFT',
+    'RIGHT',
+    'HOME',
+    'BACKSPACE',
+    'DL',
+    'IL',
+    'DC',
+    'IC',
+    'EIC',
+    'CLEAR',
+    'EOS',
+    'EOL',
+    'SF',
+    'SR',
+    'NPAGE',
+    'PPAGE',
+    'STAB',
+    'CTAB',
+    'CATAB',
+    'ENTER',
+    'PRINT',
+    'LL',
+    'A1',
+    'A3',
+    'B2',
+    'C1',
+    'C3',
+    'BTAB',
+    'BEG',
+    'CANCEL',
+    'CLOSE',
+    'COMMAND',
+    'COPY',
+    'CREATE',
+    'END',
+    'EXIT',
+    'FIND',
+    'HELP',
+    'MARK',
+    'MESSAGE',
+    'MOVE',
+    'NEXT',
+    'OPEN',
+    'OPTIONS',
+    'PREVIOUS',
+    'REDO',
+    'REFERENCE',
+    'REFRESH',
+    'REPLACE',
+    'RESTART',
+    'RESUME',
+    'SAVE',
+    'SBEG',
+    'SCANCEL',
+    'SCOMMAND',
+    'SCOPY',
+    'SCREATE',
+    'SDC',
+    'SDL',
+    'SELECT',
+    'SEND',
+    'SEOL',
+    'SEXIT',
+    'SFIND',
+    'SHELP',
+    'SHOME',
+    'SIC',
+    'SLEFT',
+    'SMESSAGE',
+    'SMOVE',
+    'SNEXT',
+    'SOPTIONS',
+    'SPREVIOUS',
+    'SPRINT',
+    'SREDO',
+    'SREPLACE',
+    'SRIGHT',
+    'SRSUME',
+    'SSAVE',
+    'SSUSPEND',
+    'SUNDO',
+    'SUSPEND',
+    'UNDO',
+    'MOUSE',
+    'RESIZE',
+    'EVENT'
+  ];
 
   static final _keysByKeyCode = <int, Key>{};
   static final _keysByName = <String, Key>{};
@@ -256,10 +250,11 @@ class Key {
 }
 
 class Screen extends Window {
-
   Screen._(int window) : super._(window);
 
-  void setup({bool autoRefresh: true, CursorVisibility cursorVisibility: CursorVisibility.NORMAL,
+  void setup(
+      {bool autoRefresh: true,
+      CursorVisibility cursorVisibility: CursorVisibility.NORMAL,
       int escDelay: null}) {
     noecho();
     cbreak();
@@ -322,33 +317,27 @@ class Screen extends Window {
     _window;
     _start_color();
   }
-
 }
 
 class Point {
-
   final int row;
   final int col;
 
   const Point(this.row, this.col);
 
   String toString() => "Point($row, $col)";
-
 }
 
 class Size {
-
   final int rows;
   final int columns;
 
   const Size(this.rows, this.columns);
 
   String toString() => "Size($rows x $columns)";
-
 }
 
 class Window {
-
   int __window;
   bool autoRefresh = false;
 
@@ -377,10 +366,11 @@ class Window {
     __window = null;
   }
 
-  void addstr(String str, {Point location: null, int maxLength: -1, int colorPair: null,
-      List<Attribute> attributes: const [
-      Attribute.NONE]}) {
-
+  void addstr(String str,
+      {Point location: null,
+      int maxLength: -1,
+      int colorPair: null,
+      List<Attribute> attributes: const [Attribute.NONE]}) {
     if (maxLength == -1) {
       maxLength = str.length;
     }
@@ -410,7 +400,9 @@ class Window {
     _attron(_window, attribute._value);
   }
 
-  void attrset({int colorPair: null, List<Attribute> attributes: const [Attribute.NONE]}) {
+  void attrset(
+      {int colorPair: null,
+      List<Attribute> attributes: const [Attribute.NONE]}) {
     _window;
 
     var attr = 0;
@@ -426,11 +418,18 @@ class Window {
     _attrset(_window, attr);
   }
 
-  void border({String left: '', String right: '', String top: '', String bottom: '', String topLeft:
-      '', String topRight: '', String bottomLeft: '', String bottomRight: ''}) {
-
+  void border(
+      {String left: '',
+      String right: '',
+      String top: '',
+      String bottom: '',
+      String topLeft: '',
+      String topRight: '',
+      String bottomLeft: '',
+      String bottomRight: ''}) {
     _log.fine('border: this=${this}');
-    _border(_window, left, right, top, bottom, topLeft, topRight, bottomLeft, bottomRight);
+    _border(_window, left, right, top, bottom, topLeft, topRight, bottomLeft,
+        bottomRight);
     _doAutoRefresh();
   }
 
@@ -478,7 +477,6 @@ class Window {
       refresh();
     }
   }
-
 }
 
 int _get_curses_value(String tag) native '_get_curses_value';
@@ -500,11 +498,20 @@ int _attr_get(int window) native '_attr_get';
 void _attroff(int window, int attr) native '_attroff';
 void _attron(int window, int attr) native '_attron';
 void _attrset(int window, int attr) native '_attrset';
-void _border(int window, String left, String right, String top, String bottom, String topLeft,
-    String topRight, String bottomLeft, String bottomRight) native '_border';
+void _border(
+    int window,
+    String left,
+    String right,
+    String top,
+    String bottom,
+    String topLeft,
+    String topRight,
+    String bottomLeft,
+    String bottomRight) native '_border';
 int _getmaxyx(int window) native '_getmaxyx';
 void _keypad(int window, bool active) native '_keypad';
-void _mvwaddnstr(int window, int row, int col, String str, int maxLength) native '_mvwaddnstr';
+void _mvwaddnstr(int window, int row, int col, String str, int maxLength)
+    native '_mvwaddnstr';
 void _waddnstr(int window, String str, int maxLength) native '_waddnstr';
 void _wclear(int window) native '_wclear';
 void _wrefresh(int window) native '_wrefresh';
