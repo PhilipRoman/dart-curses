@@ -1,0 +1,11 @@
+language: dart
+
+dart:
+- stable
+- dev
+- "1.24.3"
+
+dart_task:
+# - test
+- dartanalyzer: --fatal-warnings --no-implicit-casts --no-implicit-dynamic .
+- dartfmt --dry-run --set-exit-if-changed lib/*.dart bin/*.dart
