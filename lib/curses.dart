@@ -212,7 +212,7 @@ class Key {
   factory Key(String name) {
     _registerNamedKeys();
 
-    var key;
+    Key key;
 
     if (name.length == 1) {
       int keyCode = name.codeUnits[0];
@@ -260,7 +260,7 @@ class Screen extends Window {
   Screen._(int window) : super._(window);
 
   void setup({bool autoRefresh: true, CursorVisibility cursorVisibility: CursorVisibility.NORMAL,
-      escDelay: null}) {
+      int escDelay: null}) {
     noecho();
     cbreak();
     keypad(true);
@@ -462,7 +462,7 @@ class Window {
 
     final receivePort = new ReceivePort();
 
-    receivePort.listen((keyCode) {
+    receivePort.listen((dynamic keyCode) {
       receivePort.close();
       completer.complete(new Key._fromKeyCode(keyCode as int));
     });
