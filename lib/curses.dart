@@ -13,6 +13,8 @@ final Logger _log = new Logger('curses');
 //final int COLORS = _get_curses_value("COLORS");
 //final int COLOR_PAIRS = _get_curses_value("COLOR_PAIRS");
 
+/// Default [Screen], which is the size of the terminal screen.
+
 Screen get stdscr {
   if (_stdscr == null) {
     _stdscr = new Screen._(_initscr());
@@ -336,6 +338,11 @@ class Size {
 
   String toString() => "Size($rows x $columns)";
 }
+
+/// Windows can be thought of as two-dimensional arrays of characters 
+/// representing all or part of a CRT screen.  A default window [stdscr], 
+/// which is the size of the terminal screen, is supplied.  Others may be
+/// created with [new Window].
 
 class Window {
   int __window;
