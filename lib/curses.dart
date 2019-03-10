@@ -324,9 +324,9 @@ class Window {
   int __window;
   bool autoRefresh = false;
 
-  Window(math.Rectangle<int> position, {bool autoRefresh: true}) {
+  Window(math.Rectangle<int> bounds, {bool autoRefresh: true}) {
     __window =
-        _newwin(position.width, position.height, position.left, position.top);
+        _newwin(bounds.height, bounds.width, bounds.top, bounds.left);
     _log.fine("Window: ${__window}");
     this.autoRefresh = autoRefresh;
   }
