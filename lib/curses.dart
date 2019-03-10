@@ -365,6 +365,10 @@ class Window {
     return __window;
   }
 
+  /// Deletes this window, freeing all memory associated with it (and 
+  /// optionally clears the window's screen image). Subwindows must be
+  /// deleted before the main window can be deleted.
+  
   void dispose({bool clear: true}) {
     if (clear) {
       this.clear();
@@ -372,6 +376,12 @@ class Window {
     _delwin(_window);
     __window = null;
   }
+
+  /// Writes the given string on this window. If the [location] is given,
+  /// moves the cursor to that location before writing. If [maxLength] is
+  /// given, writes at most [maxLength] characters. If [colorPair] and/or 
+  /// [attributes] is given, uses these parameters for writing the string
+  /// (and unsets them afterwards).
 
   void addstr(String str,
       {Point location: null,
@@ -425,6 +435,8 @@ class Window {
     _attrset(_window, attr);
   }
 
+  /// Draws a box around the edges of this window using the given characters.
+
   void border(
       {String left: '',
       String right: '',
@@ -440,11 +452,15 @@ class Window {
     _doAutoRefresh();
   }
 
+  /// Clears the contents of this screen by setting every character to blank.
+
   void clear() {
     _log.fine('clear: this=${this}');
     _wclear(_window);
     _doAutoRefresh();
   }
+
+  /// Returns the size of this window.
 
   Size getmaxyx() {
     int value = _getmaxyx(_window);
@@ -455,6 +471,12 @@ class Window {
     return new Size(rows, columns);
   }
 
+  /// Enable or disable the keypad. If enabled, the user can press a function
+  /// key (such as an arrow key) and [wgetch] returns a single value
+  /// representing the function key, such as [Key] "LEFT". If disabled,
+  /// curses does not treat the function keys specially and the program has
+  /// to interpret the escape sequences itself.
+
   void keypad(bool active) {
     _keypad(_window, active);
   }
@@ -462,6 +484,8 @@ class Window {
   void refresh() {
     _wrefresh(_window);
   }
+
+  /// Reads a single character from curses terminal keyboard.
 
   Future<Key> wgetch() {
     final completer = new Completer<Key>();
