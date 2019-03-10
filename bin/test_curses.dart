@@ -4,7 +4,7 @@
 
 library test_curses;
 
-import 'dart:math' as math;
+import 'dart:math' as math show Point, Rectangle;
 
 import 'package:curses/curses.dart';
 

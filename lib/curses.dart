@@ -2,7 +2,7 @@ library curses;
 
 import 'dart:async';
 import 'dart:isolate';
-import 'dart:math' as math;
+import 'dart:math' as math show Point, Rectangle;
 
 import 'package:logging/logging.dart';
 
