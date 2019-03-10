@@ -4,6 +4,8 @@
 
 library test_curses;
 
+import 'dart:math' as math;
+
 import 'package:curses/curses.dart';
 
 void main() {
@@ -15,23 +17,25 @@ void main() {
   stdscr.init_pair(1, Color.RED, Color.BLACK);
 
   stdscr.addstr('hola',
-      location: new Point(1, 1), colorPair: 1, attributes: [Attribute.REVERSE]);
-  stdscr.addstr('adios', location: new Point(2, 1));
+      location: math.Point(1, 1),
+      colorPair: 1,
+      attributes: [Attribute.REVERSE]);
+  stdscr.addstr('adios', location: math.Point(2, 1));
   stdscr.addstr('mundo',
-      location: new Point(3, 1), colorPair: 1, attributes: [Attribute.BOLD]);
+      location: math.Point(3, 1), colorPair: 1, attributes: [Attribute.BOLD]);
 
   var size = stdscr.getmaxyx();
-  stdscr.addstr('${size.rows} x ${size.columns}', location: new Point(4, 1));
-  stdscr.addstr('XXX', location: new Point(size.rows - 1, size.columns - 4));
+  stdscr.addstr('${size.x} x ${size.y}', location: math.Point(4, 1));
+  stdscr.addstr('XXX', location: math.Point(size.y - 1, size.x - 4));
 
-  var w = new Window(new Point(10, 10), new Size(10, 10), autoRefresh: true);
+  var w = new Window(math.Rectangle(10, 10, 10, 10), autoRefresh: true);
   w.border();
-  w.addstr('Lili', location: new Point(1, 1));
+  w.addstr('Lili', location: math.Point(1, 1));
   //w.clear();
 
-  var w2 = new Window(new Point(20, 10), new Size(10, 10), autoRefresh: true);
+  var w2 = new Window(math.Rectangle(20, 10, 10, 10), autoRefresh: true);
   w2.border();
-  w2.addstr('Lolo', location: new Point(1, 1));
+  w2.addstr('Lolo', location: math.Point(1, 1));
 
   w.wgetch().then((key) {
     w.dispose();

@@ -2,6 +2,7 @@ library curses;
 
 import 'dart:async';
 import 'dart:isolate';
+import 'dart:math' as math;
 
 import 'package:logging/logging.dart';
 
@@ -319,30 +320,13 @@ class Screen extends Window {
   }
 }
 
-class Point {
-  final int row;
-  final int col;
-
-  const Point(this.row, this.col);
-
-  String toString() => "Point($row, $col)";
-}
-
-class Size {
-  final int rows;
-  final int columns;
-
-  const Size(this.rows, this.columns);
-
-  String toString() => "Size($rows x $columns)";
-}
-
 class Window {
   int __window;
   bool autoRefresh = false;
 
-  Window(Point location, Size size, {bool autoRefresh: true}) {
-    __window = _newwin(size.rows, size.columns, location.row, location.col);
+  Window(math.Rectangle<int> position, {bool autoRefresh: true}) {
+    __window =
+        _newwin(position.width, position.height, position.left, position.top);
     _log.fine("Window: ${__window}");
     this.autoRefresh = autoRefresh;
   }
@@ -367,7 +351,7 @@ class Window {
   }
 
   void addstr(String str,
-      {Point location: null,
+      {math.Point<int> location: null,
       int maxLength: -1,
       int colorPair: null,
       List<Attribute> attributes: const [Attribute.NONE]}) {
@@ -382,7 +366,7 @@ class Window {
     if (location == null) {
       _waddnstr(_window, str, maxLength);
     } else {
-      _mvwaddnstr(_window, location.row, location.col, str, maxLength);
+      _mvwaddnstr(_window, location.x, location.y, str, maxLength);
     }
 
     _attrset(_window, saved_attr);
@@ -439,13 +423,13 @@ class Window {
     _doAutoRefresh();
   }
 
-  Size getmaxyx() {
+  math.Point<int> getmaxyx() {
     int value = _getmaxyx(_window);
 
-    int rows = value & 0xFFFFFFFF;
-    int columns = (value >> 32) & 0xFFFFFFFF;
+    int y = value & 0xFFFFFFFF;
+    int x = (value >> 32) & 0xFFFFFFFF;
 
-    return new Size(rows, columns);
+    return math.Point(x, y);
   }
 
   void keypad(bool active) {
