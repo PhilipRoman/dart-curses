@@ -429,7 +429,7 @@ class Window {
     int y = value & 0xFFFFFFFF;
     int x = (value >> 32) & 0xFFFFFFFF;
 
-    return math.Point(x, y);
+    return new math.Point(x, y);
   }
 
   void keypad(bool active) {
