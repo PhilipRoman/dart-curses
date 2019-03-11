@@ -366,7 +366,7 @@ class Window {
     if (location == null) {
       _waddnstr(_window, str, maxLength);
     } else {
-      _mvwaddnstr(_window, location.x, location.y, str, maxLength);
+      _mvwaddnstr(_window, location.y, location.x, str, maxLength);
     }
 
     _attrset(_window, saved_attr);
