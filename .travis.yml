@@ -7,7 +7,7 @@ dart:
 
 dart_task:
 # - test
-- dartanalyzer: --fatal-warnings --no-implicit-casts --no-implicit-dynamic .
+- dartanalyzer: --no-implicit-casts .
 - dartfmt --dry-run --set-exit-if-changed lib/*.dart bin/*.dart
 
 matrix:

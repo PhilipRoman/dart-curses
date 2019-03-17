@@ -2,6 +2,7 @@ library curses;
 
 import 'dart:async';
 import 'dart:isolate';
+import 'dart:math' as math show Point, Rectangle;
 
 import 'package:logging/logging.dart';
 
@@ -321,24 +322,6 @@ class Screen extends Window {
   }
 }
 
-class Point {
-  final int row;
-  final int col;
-
-  const Point(this.row, this.col);
-
-  String toString() => "Point($row, $col)";
-}
-
-class Size {
-  final int rows;
-  final int columns;
-
-  const Size(this.rows, this.columns);
-
-  String toString() => "Size($rows x $columns)";
-}
-
 /// Windows can be thought of as two-dimensional arrays of characters 
 /// representing all or part of a CRT screen.  A default window [stdscr], 
 /// which is the size of the terminal screen, is supplied.  Others may be
@@ -348,8 +331,9 @@ class Window {
   int __window;
   bool autoRefresh = false;
 
-  Window(Point location, Size size, {bool autoRefresh: true}) {
-    __window = _newwin(size.rows, size.columns, location.row, location.col);
+  Window(math.Rectangle<int> bounds, {bool autoRefresh: true}) {
+    __window =
+        _newwin(bounds.height, bounds.width, bounds.top, bounds.left);
     _log.fine("Window: ${__window}");
     this.autoRefresh = autoRefresh;
   }
@@ -384,7 +368,7 @@ class Window {
   /// (and unsets them afterwards).
 
   void addstr(String str,
-      {Point location: null,
+      {math.Point<int> location: null,
       int maxLength: -1,
       int colorPair: null,
       List<Attribute> attributes: const [Attribute.NONE]}) {
@@ -399,7 +383,7 @@ class Window {
     if (location == null) {
       _waddnstr(_window, str, maxLength);
     } else {
-      _mvwaddnstr(_window, location.row, location.col, str, maxLength);
+      _mvwaddnstr(_window, location.y, location.x, str, maxLength);
     }
 
     _attrset(_window, saved_attr);
@@ -460,15 +444,15 @@ class Window {
     _doAutoRefresh();
   }
 
-  /// Returns the size of this window.
+  /// Returns the size of this window as a [math.Point]
 
-  Size getmaxyx() {
+  math.Point<int> getmaxyx() {
     int value = _getmaxyx(_window);
 
-    int rows = value & 0xFFFFFFFF;
-    int columns = (value >> 32) & 0xFFFFFFFF;
+    int y = value & 0xFFFFFFFF;
+    int x = (value >> 32) & 0xFFFFFFFF;
 
-    return new Size(rows, columns);
+    return new math.Point(x, y);
   }
 
   /// Enable or disable the keypad. If enabled, the user can press a function

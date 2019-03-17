@@ -1,5 +1,5 @@
 name: curses
-version: 0.1.0
+version: 0.2.0
 author: Iván Zaera Avellón <izaera@gmail.com>
 description: Bindings for curses library in Dart
 homepage: https://github.com/izaera/dart-curses
